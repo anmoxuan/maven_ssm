@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="bdqn:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="bdqn.war">
+      <element id="artifact" artifact-name="bdqn:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+<mapper namespace="com.mapper.GoodsMapper">
+    <resultMap id="xx" type="com.entity.Goods">
+        <id property="gid" column="gid"></id>
+        <result property="gname" column="gname"></result>
+        <result property="price" column="price"></result>
+        <result property="picture" column="picture"></result>
+        <result property="yieldtime" column="yieldtime"></result>
+        <association property="typez" column="tid" javaType="com.entity.Typez">
+            <id property="tid" column="tid"></id>
+            <result property="tname" column="tname"></result>
+        </association>
+    </resultMap>
+    <select id="findGoods" resultMap="xx">
+        select * from goods g,typez t where g.tid=t.tid
+    </select>
+    <insert id="addGodds" parameterType="com.entity.Goods">
+        insert into goods values(null,#{gname},#{price},#{picture},#{yieldtime},#{typez.tid})
+    </insert>
+    <update id="updGoods" parameterType="com.entity.Goods">
+        update goods
+        <set>
+            <if test="gname!=null">
+                gname=#{gname},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="picture!=null">
+                picture=#{picture},
+            </if>
+            <if test="yieldtime!=null">
+                yieldtime=#{yieldtime},
+            </if>
+            <if test="typez!=null">
+                tid=#{typez.tid}
+            </if>
+        </set>
+    </update>
+    <delete id="delGoods" parameterType="int">
+        delete from goods where gid=#{gid}
+    </delete>
+    <select id="findOne" resultMap="xx" parameterType="int">
+        select * from goods g,typez t where g.tid=t.tid and g.gid=#{gid}
+    </select>
+    <select id="findTypez" resultType="com.entity.Typez">
+        select * from typez
+    </select>
+</mapper>
